@@ -1,6 +1,7 @@
 window.addEventListener('load', function(){
     console.log('DOM дерево полностью построено:', new Date);
-    window.scrollY = 0;//сначала стр
+
+    document.documentElement.clientHeight = 0;
 
     preloader();
     main();
@@ -28,7 +29,7 @@ function preloader() {
 
     setTimeout(() => {
         document.body.style.overflow = 'overlay'
-    }, 500);
+    }, 4500);
 
     var typed = new Typed('#draw-pic-span', {
         strings: [' картинки...', ' шрифты...', ' стили...'],
@@ -74,14 +75,30 @@ function home() {
         '.home__inner .subtitle img'
     ], {
         y: -100,
-        opacity: 0,
     }, {
         delay: 4.5,
         y: 0,
-        opacity: 1,
         duration: 2,
         ease: 'power3',
     });
+
+
+    gsap.to('.home__inner .subtitle img', 1, {
+        opacity: 1,
+        delay: 6.6,
+    });
+
+    const scrollDown = document.getElementById('home-subtitle');
+
+    const pick = document.getElementById('start');
+
+    scrollDown.addEventListener('click', function() {
+
+        let heightToPick = pick.getBoundingClientRect().top - 120;
+        console.log(heightToPick);
+
+        window.scrollTo(0, heightToPick);
+    })
 };
 
 function start() {
